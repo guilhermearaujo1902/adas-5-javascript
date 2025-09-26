@@ -12,8 +12,8 @@
             <h1>Lista de pacientes</h1>
         </div>
 
-        <div class="btn-row w-80">
-            <button class="btn btn-info">Novo</button>
+        <div class="w-80 btn-row">
+            <button class="btn btn-info" onclick="addPaciente()">Novo</button>
         </div>
 
         <div class="w-80">
@@ -21,12 +21,17 @@
                 <tr>
                     <th>Código</th>
                     <th>Nome</th>
+                    <th>Estado</th>
                     <th>Convênio</th>
                     <th>Telefone</th>
                     <th>Sexo</th>
                     <th>Ações</th>
                 </tr>
             </table>
+        </div>
+
+        <div class="w-80 card-list" id="cardList">
+            
         </div>
         
     </div>
