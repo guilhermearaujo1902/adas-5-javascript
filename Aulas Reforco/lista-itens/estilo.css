@@ -73,6 +73,10 @@ h1 {
     background-color: #4769ce;
 }
 
+.btn-cancelar {
+    background-color: #919191;
+}
+
 .borda {
     border: solid 1px red;
 }
@@ -142,10 +146,53 @@ h1 {
     background-color: #1f1e1e;
 }
 
+.indice-coma {
+    background-color: #6c0e0e;
+}
+
 .borda-alta {
     border-left: solid 5px #cf7404;
 }
 
 .borda-internado {
     border-left: solid 5px #1f1e1e;
+}
+
+.borda-coma {
+    border-left: solid 5px #6c0e0e;
+}
+
+.linha-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.linha-3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.form {
+    padding: 24px 0;
+}
+
+.form label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.form input {
+    width: 100%;
+    padding: 8px;
+    border: solid 1px #c0c0c0;
+    border-radius: 4px;
+}
+
+.esconder {
+    display: none;
 }

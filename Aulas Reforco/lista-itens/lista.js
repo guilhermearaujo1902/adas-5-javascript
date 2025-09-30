@@ -31,8 +31,10 @@ function gerarListaPacientes() {
 
     // Criando vínculo entre a tabela no html e a constante no javascript
     const tabelaPacientes = document.getElementById('tabelaPacientes');
+    tabelaPacientes.innerHTML = '';
 
     const divCardPacientes = document.getElementById('cardList');
+    divCardPacientes.innerHTML = '';
 
     // Percorrer a lista de pacientes e para cada paciente, criar uma linha 'tr'
     // nova na tabela
@@ -50,6 +52,11 @@ function gerarListaPacientes() {
         if (paciente.estado === 'EM ALTA') {
             classeIndice = 'indice-alta';
             classeBorda = 'borda-alta';
+        }
+
+        if (paciente.estado === 'COMA') {
+            classeIndice = 'indice-coma';
+            classeBorda = 'borda-coma';
         }
 
         tabelaPacientes.innerHTML += `
@@ -85,17 +92,50 @@ function gerarListaPacientes() {
 
 gerarListaPacientes();
 
-function addPaciente() {
-    alert('Falta implementar a funcionalidade!!!!');
+function abrirFormulario() {
+    const divFormulario = document.getElementById('form');
+    divFormulario.classList.remove('esconder');
 }
 
-// Exercício
-// Criar uma função para ser chamada pelo botão 'Novo'
-// ao clicar no botão vai chamar a função 'addPaciente()'
-// e inserir um objeto novo dentro da lista 'listaPacientes'
-//
-// Obs - Pode inserir um objeto com informações estáticas mesmo.
+function fecharFormulario() {
+    const divFormulario = document.getElementById('form');
+    divFormulario.classList.add('esconder');
+}
 
+function addPaciente() {
 
-// DESAFIO:
-// Implementar a funcionalidade do botão 'Excluir'
+    // Maper todos os campos da tela e guardar em constantes
+    const novoNome = document.getElementById('nome').value;
+    const novoConvenio = document.getElementById('convenio').value;
+    const novoTelefone = document.getElementById('telefone').value;
+    const novoEstado = document.getElementById('estado').value;
+    const novoSexo = document.getElementById('sexo').value;
+
+    // Crio um objeto no mesmo padrão dos objetos da lista de pacientes
+    // e insiro em cadas propriedade do objeto o valor correspondente
+    // das constantes
+    const novoPaciente = {
+        nome: novoNome,
+        convenio: novoConvenio,
+        telefone: novoTelefone,
+        estado: novoEstado,
+        sexo: novoSexo
+    }
+
+    // Inserir o novo objeto na lista já existente
+    listaPacientes.push(novoPaciente);
+
+    gerarListaPacientes();
+    limparCampos();
+    fecharFormulario();
+}
+
+function limparCampos() {
+
+    document.getElementById('nome').value = '';
+    document.getElementById('convenio').value = '';
+    document.getElementById('telefone').value = '';
+    document.getElementById('estado').value = '';
+    document.getElementById('sexo').value = '';
+
+}
