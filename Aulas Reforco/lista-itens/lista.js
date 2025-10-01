@@ -26,6 +26,8 @@ const listaPacientes = [
     },
 ]
 
+let sequenciaCodigos = 4;
+
 
 function gerarListaPacientes() {
 
@@ -70,8 +72,16 @@ function gerarListaPacientes() {
                 <td>${paciente.telefone}</td>
                 <td>${paciente.sexo}</td>
                 <td>
-                    <button class="btn btn-success">Editar</button>
-                    <button class="btn btn-danger">Excluir</button>
+                    <button 
+                        class="btn btn-success"
+                        onclick="carregarPaciente(${paciente.codigo})">
+                        Editar
+                    </button>
+                    <button 
+                        class="btn btn-danger" 
+                        onclick="excluir(${paciente.codigo})">
+                        Excluir
+                    </button>
                 </td>
             </tr>
         `;
@@ -100,11 +110,13 @@ function abrirFormulario() {
 function fecharFormulario() {
     const divFormulario = document.getElementById('form');
     divFormulario.classList.add('esconder');
+    limparCampos();
 }
 
-function addPaciente() {
+function salvarPaciente() {
 
     // Maper todos os campos da tela e guardar em constantes
+    const codigo = document.getElementById('codigo').value;
     const novoNome = document.getElementById('nome').value;
     const novoConvenio = document.getElementById('convenio').value;
     const novoTelefone = document.getElementById('telefone').value;
@@ -122,8 +134,32 @@ function addPaciente() {
         sexo: novoSexo
     }
 
-    // Inserir o novo objeto na lista já existente
-    listaPacientes.push(novoPaciente);
+    if (codigo) {
+        // Processo de editar um registro já existente
+
+        novoPaciente.codigo = codigo;
+        let posicaoEditar = null;
+
+        listaPacientes.forEach((paciente, posicao) => {
+            if (paciente.codigo == codigo) {
+                posicaoEditar = posicao
+            }
+        });
+
+        listaPacientes.splice(posicaoEditar, 1, novoPaciente)
+        
+
+    } else {
+        // Processo de inserir um registro novo
+
+        novoPaciente.codigo = sequenciaCodigos;
+        // sequenciaCodigos = sequenciaCodigos + 1;
+        sequenciaCodigos++;
+
+        // Inserir o novo objeto na lista já existente
+        listaPacientes.push(novoPaciente);
+    }
+
 
     gerarListaPacientes();
     limparCampos();
@@ -132,10 +168,48 @@ function addPaciente() {
 
 function limparCampos() {
 
+    document.getElementById('codigo').value = '';
     document.getElementById('nome').value = '';
     document.getElementById('convenio').value = '';
     document.getElementById('telefone').value = '';
     document.getElementById('estado').value = '';
     document.getElementById('sexo').value = '';
+
+}
+
+function excluir(codigo) {
+
+    let posicaoRemover = null;
+
+    listaPacientes.forEach((paciente, posicao) => {
+        if (paciente.codigo == codigo) {
+            posicaoRemover = posicao
+        }
+    });
+
+    if (posicaoRemover != null) {
+        listaPacientes.splice(posicaoRemover, 1)
+    }
+
+    gerarListaPacientes()
+
+}
+
+function carregarPaciente(codigo) {
+
+    const pacienteEncontrado = listaPacientes.find(paciente => {
+        return paciente.codigo === codigo
+    })
+
+    if (pacienteEncontrado) {
+        abrirFormulario();
+
+        document.getElementById('codigo').value = pacienteEncontrado.codigo;
+        document.getElementById('nome').value = pacienteEncontrado.nome;
+        document.getElementById('convenio').value = pacienteEncontrado.convenio;
+        document.getElementById('telefone').value = pacienteEncontrado.telefone;
+        document.getElementById('estado').value = pacienteEncontrado.estado;
+        document.getElementById('sexo').value = pacienteEncontrado.sexo;
+    }
 
 }

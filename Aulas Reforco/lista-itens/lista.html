@@ -17,6 +17,12 @@
         </div>
 
         <div class="w-80 form esconder" id="form">
+            <div class="linha-3">
+                <div>
+                    <label for="codigo">Código</label>
+                    <input type="text" id="codigo" readonly>
+                </div>
+            </div>
             <div class="linha-2">
                 <div>
                     <label for="nome">Nome</label>
@@ -44,7 +50,11 @@
             </div>
 
             <div class="linha-2">
-                <button class="btn btn-info" onclick="addPaciente()">Salvar</button>
+                <button
+                    class="btn btn-info"
+                    onclick="salvarPaciente()">
+                    Salvar
+                </button>
                 <button
                     class="btn btn-cancelar"
                     onclick="fecharFormulario()">
